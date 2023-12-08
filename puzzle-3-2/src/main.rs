@@ -29,14 +29,13 @@ fn run_puzzle(input: &str) -> u32 {
     let schematic = Schematic::from_str(input).unwrap();
 
     schematic
-        .numbers
+        .items
         .iter()
-        .filter(|n| n.is_part_number(&schematic))
-        .map(|n| n.value)
+        .map(|item| item.1.gear_ratio(*item.0, &schematic).unwrap_or(0))
         .sum()
 }
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 struct Number {
     value: u32,
     location: Point,
@@ -44,57 +43,13 @@ struct Number {
 }
 
 impl Number {
-    /// Returns true if number is adjacent to a symbol
-    fn is_part_number(&self, schematic: &Schematic) -> bool {
-        let locations = self.locations();
-        let mut checks: Vec<Point> = Vec::new();
-
-        for location in locations {
-            // Check line below
-            checks.push(location + (1_usize, 0).into());
-
-            if self.location.row > 0 {
-                // Check line above
-                checks.push(location - (1_usize, 0).into())
-            }
-        }
-
-        if self.location.col > 0 {
-            // Check line to left
-            checks.push(self.location - (0, 1_usize).into());
-            if self.location.row > 0 {
-                // Top left corner
-                checks.push(self.location - (1_usize, 1).into());
-            }
-            // Bottom left corner
-            checks.push(self.location + (1_usize, 0).into() - (0, 1_usize).into());
-        }
-
-        let rightmost_location = *self.locations().last().unwrap();
-        // Check line to right
-        checks.push(rightmost_location + (0, 1_usize).into());
-        if self.location.row > 0 {
-            // Top right corner
-            checks.push(rightmost_location - (1_usize, 0).into() + (0, 1_usize).into())
-        }
-        // Bottom right corner
-        checks.push(rightmost_location + (1, 1_usize).into());
-
-        // If any location around the number is a symbol
-        checks
-            .iter()
-            .any(|location| schematic.get(location).is_symbol())
-    }
-
     /// Returns vec of locations of digits making up the number
     fn locations(&self) -> Vec<Point> {
-        (0..self.length)
-            .map(|idx| self.location + (0, idx).into())
-            .collect()
+        locations(self.location, self.length)
     }
 }
 
-#[derive(Debug, Default)]
+#[derive(Debug, Default, PartialEq)]
 enum Item {
     Symbol(char),
     Number(Rc<Number>),
@@ -103,9 +58,75 @@ enum Item {
 }
 
 impl Item {
-    fn is_symbol(&self) -> bool {
-        matches!(self, Item::Symbol(_))
+    fn gear_ratio(&self, location: Point, items: &Schematic) -> Option<u32> {
+        if !matches!(self, Item::Symbol('*')) {
+            None
+        } else {
+            let adjacent = find_adjacent(location, 1, items);
+            let mut unique_numbers = Vec::new();
+            for item in adjacent {
+                if let Item::Number(value) = item {
+                    if !unique_numbers.contains(&value) {
+                        unique_numbers.push(value);
+                    }
+                }
+            }
+
+            if unique_numbers.len() == 2 {
+                Some(unique_numbers[0].value * unique_numbers[1].value)
+            } else {
+                None
+            }
+        }
     }
+}
+
+fn locations(init_location: Point, length: usize) -> Vec<Point> {
+    (0..length)
+        .map(|idx| init_location + (0, idx).into())
+        .collect()
+}
+
+fn find_adjacent(location: Point, length: usize, items: &Schematic) -> Vec<&Item> {
+    let mut checks: Vec<Point> = Vec::new();
+
+    for location in locations(location, length) {
+        // Check line below
+        checks.push(location + (1_usize, 0).into());
+
+        if location.row > 0 {
+            // Check line above
+            checks.push(location - (1_usize, 0).into())
+        }
+    }
+
+    if location.col > 0 {
+        // Check line to left
+        checks.push(location - (0, 1_usize).into());
+        if location.row > 0 {
+            // Top left corner
+            checks.push(location - (1_usize, 1).into());
+        }
+        // Bottom left corner
+        checks.push(location + (1_usize, 0).into() - (0, 1_usize).into());
+    }
+
+    let rightmost_location = *locations(location, length).iter().last().unwrap();
+    // Check line to right
+    checks.push(rightmost_location + (0, 1_usize).into());
+    if location.row > 0 {
+        // Top right corner
+        checks.push(rightmost_location - (1_usize, 0).into() + (0, 1_usize).into())
+    }
+    // Bottom right corner
+    checks.push(rightmost_location + (1, 1_usize).into());
+
+    // If any location around the number is a symbol
+    checks
+        .iter()
+        .map(|point| items.get(point))
+        .filter(|item| !matches!(item, Item::Other))
+        .collect()
 }
 
 #[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
@@ -150,7 +171,7 @@ where
 
 #[derive(Debug)]
 struct Schematic {
-    numbers: Vec<Rc<Number>>,
+    _numbers: Vec<Rc<Number>>,
     items: HashMap<Point, Item>,
 }
 
@@ -173,7 +194,10 @@ impl FromStr for Schematic {
             numbers.extend(schematic_parse_line(idx, line, &mut items));
         }
 
-        Ok(Schematic { numbers, items })
+        Ok(Schematic {
+            _numbers: numbers,
+            items,
+        })
     }
 }
 
@@ -234,6 +258,6 @@ mod tests {
     fn puzzle_result_test() {
         let input_filename = "tests/input";
         let result = run_puzzle_file(&PathBuf::from(input_filename));
-        assert_eq!(result, 554003);
+        assert_eq!(result, 87263515);
     }
 }

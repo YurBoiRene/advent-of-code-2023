@@ -18,8 +18,8 @@ My goal is **not** to write perfect code, solve all of the challenges, or solve 
 | 1-2    | :white_check_mark:   | Took much more time than `1-2`. It took a while for me to figure out that something like eightwo was 82. This messed up my original regex solution. I am not proud of my reverse regex solution. I also learned a little about the `anyhow` and `thiserror` crates but I would want to use them properly sometime. |
 | 2-1    | :white_check_mark:   | Practice with simple structs and learned about the `FromStr` trait. Very much enjoyed using iterators again. |
 | 2-2    | :white_check_mark:   | Part 2 was simple thanks to a solid design in `2-1`. Again, iterators made the meat of the puzzle quite trivial. |
-| 3-1    | :white_large_square: | In progress, struggling with proper parsing. Might need to go more imperative. |
-| 3-2    | :white_large_square: ||
+| 3-1    | :white_check_mark: | Difficult, but I learned a lot. Check out the [README](puzzle-3-1/README.md). |
+| 3-2    | :white_check_mark: | Less difficult but exposed some design flaws in 3-1. Check out the [README](puzzle-3-2/README.md). |
 | 4-1    | :white_large_square: ||
 | 4-2    | :white_large_square: ||
 | 5-1    | :white_large_square: ||

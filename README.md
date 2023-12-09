@@ -20,7 +20,7 @@ My goal is **not** to write perfect code, solve all of the challenges, or solve 
 | 2-2    | :white_check_mark:   | Part 2 was simple thanks to a solid design in `2-1`. Again, iterators made the meat of the puzzle quite trivial. |
 | 3-1    | :white_check_mark: | Difficult, but I learned a lot. Check out the [README](puzzle-3-1/README.md). |
 | 3-2    | :white_check_mark: | Less difficult but exposed some design flaws in 3-1. Check out the [README](puzzle-3-2/README.md). |
-| 4-1    | :white_large_square: ||
+| 4-1    | :white_check_mark: | Not too hard. I appreciate rusts string spiting and iterators. |
 | 4-2    | :white_large_square: ||
 | 5-1    | :white_large_square: ||
 | 5-2    | :white_large_square: ||

@@ -21,7 +21,7 @@ My goal is **not** to write perfect code, solve all of the challenges, or solve 
 | 3-1    | :white_check_mark: | Difficult, but I learned a lot. Check out the [README](puzzle-3-1/README.md). |
 | 3-2    | :white_check_mark: | Less difficult but exposed some design flaws in 3-1. Check out the [README](puzzle-3-2/README.md). |
 | 4-1    | :white_check_mark: | Not too hard. I appreciate rusts string spiting and iterators. |
-| 4-2    | :white_large_square: ||
+| 4-2    | :white_check_mark: | Fun!! I initially made a recursive implementation because that "made sense" but quickly realized it would take a loooong time to compute. This lead me to find a constant time solution |
 | 5-1    | :white_large_square: ||
 | 5-2    | :white_large_square: ||
 | 6-1    | :white_large_square: ||

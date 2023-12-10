@@ -24,8 +24,8 @@ My goal is **not** to write perfect code, solve all of the challenges, or solve 
 | 4-2    | :white_check_mark: | Fun!! I initially made a recursive implementation because that "made sense" but quickly realized it would take a loooong time to compute. This lead me to find a constant time solution |
 | 5-1    | :white_check_mark: | Not to bad, fun. I learned about itertools' `collect_tuple()` which is a neat function. |
 | 5-2    | :white_check_mark: | Interesting. I learned about 2 new things, the [`array_chunks()`](https://github.com/rust-lang/rust/issues/100450) experimental feature which I didn't end up using and the [`rayon`](https://docs.rs/rayon/latest/rayon/) crate for parallelism. I have a brute force solution that works decently well considering the simplicity of implementation. With rayon it takes under a minute to finish. |
-| 6-1    | :white_large_square: ||
-| 6-2    | :white_large_square: ||
+| 6-1    | :white_check_mark: | Not too hard, I enjoyed using `take_while()` to find the minimum winning time. I also liked using ranges to cheaply calculate the amount of winning times. |
+| 6-2    | :white_check_mark: | My efficient design in 6-1 made this trivial |
 | 7-1    | :white_large_square: ||
 | 7-2    | :white_large_square: ||
 | 8-1    | :white_large_square: ||

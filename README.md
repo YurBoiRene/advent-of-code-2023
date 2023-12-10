@@ -26,8 +26,8 @@ My goal is **not** to write perfect code, solve all of the challenges, or solve 
 | 5-2    | :white_check_mark: | Interesting. I learned about 2 new things, the [`array_chunks()`](https://github.com/rust-lang/rust/issues/100450) experimental feature which I didn't end up using and the [`rayon`](https://docs.rs/rayon/latest/rayon/) crate for parallelism. I have a brute force solution that works decently well considering the simplicity of implementation. With rayon it takes under a minute to finish. |
 | 6-1    | :white_check_mark: | Not too hard, I enjoyed using `take_while()` to find the minimum winning time. I also liked using ranges to cheaply calculate the amount of winning times. |
 | 6-2    | :white_check_mark: | My efficient design in 6-1 made this trivial |
-| 7-1    | :white_large_square: | Straightforward but good practice for constructing in rust. I attached the cards that made each of the winning hands which I shouldn't have done but it allowed be to learn about `Educe` which is a really cool crate to get more flexibility for deriving default traits. |
-| 7-2    | :white_large_square: ||
+| 7-1    | :white_check_mark: | Straightforward but good practice for constructing in rust. I attached the cards that made each of the winning hands which I shouldn't have done but it allowed be to learn about `Educe` which is a really cool crate to get more flexibility for deriving default traits. |
+| 7-2    | :white_check_mark: | Not too bad, just some edge case thinking. My clever way of doing the jokers is to just add the amount of jokers to the more frequent card count. Quick, clean, and easier than putting in all the joker logic. |
 | 8-1    | :white_large_square: ||
 | 8-2    | :white_large_square: ||
 | 9-1    | :white_large_square: ||

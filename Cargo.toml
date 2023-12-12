@@ -1,0 +1,3 @@
+[workspace]
+members = ["aoc-common", "puzzle-*"]
+resolver = "2"
